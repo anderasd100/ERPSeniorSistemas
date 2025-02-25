@@ -1,0 +1,25 @@
+Definir Alfa aDiasemana;
+Definir Numero nDia;
+
+aDiaSemana = "";
+nDia = 3;
+se (nDia = 1)
+  aDiasemana = "Segunda-Feira";
+  Senao
+  se (nDia = 2)
+  aDiasemana = "Terça-Feira";
+  Senao
+  se (nDia = 3)
+  aDiasemana = "Quarta-Feira";
+  Senao
+  se (nDia = 4)
+  aDiasemana = "Quinta-Feira";
+  Senao
+  se (nDia = 5)
+  aDiasemana = "Sexta-Feira";
+  Senao
+  aDiasemana = "Chegou o final de semana!!!!!";
+  Mensagem(Retorna, aDiaSemana);
+  
+
+

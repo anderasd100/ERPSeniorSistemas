@@ -1,0 +1,24 @@
+ /*Senior possui sua própria linguagem de programação: LSP- Linguagem Senior de programação (Português).
+       Não há distinção de letras Maiúscula e Minúscula. Possui cerca de 50 palavras reservadas. Para identificar se a palavra é reservada, 
+       basta verificar se ela ficou em NEGRITO, pois o editor de regras faz esse dito de destaque das palavras que são reservadas. */
+
+/*  Regras são úteis, mas só devem ser utilizadas no último caso.
+Para customização é utilizado a ferramenta ---->(GERADOR DE REGRAS).<----
+*/
+@----------------Estudo comentários---------------@
+@ Comentários de UMA LINHA@
+/*Comentários de VÁRIAS LINHAS */
+@-------------------------------------------------@
+
+@------------------------Estudo INDENTAÇÃO--------------------------------@
+@A indentação em uma Regra auxilia seu entendimento. Ela não é obrigatória@
+@-------------------------------------------------------------------------@
+
+
+/*
+Compilando uma regra:
+o compilador irá gerar as instruções de 
+execução e irá adicioná-las ao arquivo binário do sistema (.BIN) para posterior execução. 
+ */
+
+ @Marcadores:  É possível inserir até 10 marcadores cujos números vão de 0 até 9. @

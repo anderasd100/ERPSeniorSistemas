@@ -1,0 +1,50 @@
+
+@Definição das variváveis@
+Definir Alfa aTipoCliente;
+Definir Alfa aNomeCliente;
+Defnir Alfa AEnderecocliente;
+Definir Alfa aMsg;
+aTipoCliente = "J"; @Somente carregaremos Clientes do tipo Pessoa Jurídica@
+
+@Criação do cursor de cliente@
+Definir Cursor Cur_clientes;
+Cur_clientes.sql "SELECT codcli, Nomcli, EndCli \
+                    FROM E085CLI\ 
+                    WHERE (TipCli =:aTipoCliente)\
+                    ORDER BY CodCli";
+
+ /* Execução do Cursor de clientes */         
+ 
+ Cur_clientes.AbrirCursor;
+ ENQUANTO (Cur_clientes.Achou)
+      Inicio
+        aNomeCliente = Cur_clientes.Nomcli;
+        aEnderecocliente = Cur_clientes.EndCli;
+        aMsg = aNomeCliente + " END.: "+ aEnderecocliente;
+        Mensagem (Retorna, aMsg);
+        Cur_clientes.Proximo();
+      Fim;
+      @Fechamento do Cursor de Clientes@
+      Cur_clientes.SQL_FecharCursor();
+
+
+Mensagem(Retorna, "Estudo Senior!!!!");
+
+/*
+Estrutura:
+Declaração de variáveis
+Definir Cursor
+Criar o SELECT no cursor
+Abrir Cursor
+{
+}
+fechar cursor
+ */
+     
+
+
+
+
+
+      
+      
