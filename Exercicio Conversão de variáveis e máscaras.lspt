@@ -1,0 +1,26 @@
+@Definição das variáveis@
+Definir Alfa anomeCli;
+Definir Numero nNumeroPedido;
+Definir Numero nTotalPedido;
+Definir Alfa dDataVenda;
+Definir Alfa aNumeroPedido;
+Definir Alfa aTotalPedido;
+Definir Alfa aDataVenda;
+Definir Alfa aComDesconto;
+Definir Alfa aMsg;
+
+anomeCli = "Anderson Abreu Rabelo";
+nNumeroPedido = 77;
+nTotalPedido = 266.58;
+nComDesconto = nTotalPedido * 0.9;
+MontaData(26,02,2025,dDataVenda); @Função que monta uma data em uma variável@
+IntParaAlfa(nNumeroPedido,aNumeroPedido); @Converte um inteiro para alfanumérico@
+@---------Conversão de Valores para texto de acordo com uma Máscara-------------@
+ConverteMascara(1,nTotalPedido,aTotalPedido,"zzz.zz9,99");
+ConverteMascara(1,nComDesconto,aComDesconto,"zzz.zz9,99");
+@-----Conversão de Data para Texto de acordo com uma máscara------------------@
+ConverteMascara(3,dDataVenda,aDataVenda,"DD/MM/YYYY");
+@---------Concatenação de Instrings-------------------------------------------@
+aMsg = "Pedido:" + aNumeroPedido + ", Cliente: " + anomeCli + ", Total pedido: " + aTotalPedido + ", Com desconto: " + aComDesconto + ", Data de Venda: " + aDataVenda;
+Mensagem(Retorna,aMsg);
+

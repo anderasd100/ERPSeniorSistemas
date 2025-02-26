@@ -1,0 +1,33 @@
+@Laço de repetição PARA@
+
+/*empregado normalmente quando é conhecido o número de interações a realizar, no exemplo 
+abaixo i <= 7 (sete vezes)  */
+
+Definir Alfa aDiaS;
+Definir Numero nDia;
+AdiaS = "";
+nDia = 30;
+Para (i = 1; i <= nDia; i++)
+{
+  Se (nDia = 1)
+  aDiaS = "Segunda";
+  Senao
+  Se (nDia = 2)
+  aDiaS = "Terça";
+  Senao
+  Se (nDia = 3)
+  aDiaS = "Quarta";
+  Senao
+  Se (nDia = 4)
+  aDiaS = "Quinta";
+  Senao
+  Se (nDia = 5)
+  aDiaS = "Sexta";
+  Senao
+  Se (nDia = 6)
+  aDiaS = "Eba, final de semana chegou!!!!!";
+  Senao
+     Pare;
+}
+Menssagem(Retorna,aDiaS);
+

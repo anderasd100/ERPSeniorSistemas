@@ -2,9 +2,12 @@
        Não há distinção de letras Maiúscula e Minúscula. Possui cerca de 50 palavras reservadas. Para identificar se a palavra é reservada, 
        basta verificar se ela ficou em NEGRITO, pois o editor de regras faz esse dito de destaque das palavras que são reservadas. */
 
+ @As variáveis de sistema se destacam das outras variáveis pela cor vermelha e não precisam ser declaradas.@      
+
 /*  Regras são úteis, mas só devem ser utilizadas no último caso.
 Para customização é utilizado a ferramenta ---->(GERADOR DE REGRAS).<----
 */
+
 @----------------Estudo comentários---------------@
 @ Comentários de UMA LINHA@
 /*Comentários de VÁRIAS LINHAS */
@@ -22,3 +25,100 @@ execução e irá adicioná-las ao arquivo binário do sistema (.BIN) para poste
  */
 
  @Marcadores:  É possível inserir até 10 marcadores cujos números vão de 0 até 9. @
+
+ /*O compilador das regras não 
+ diferencia letras maiúsculas de minúsculas, portanto escrever o nome de uma variável “Nome”, 
+ “NOME” ou “NoMe” será a mesma variável.*/
+
+@ Definição de Variáveis @ 
+Definir Numero nCodigo; 
+Definir Alfa aNome; 
+Definir Data dDataCadastro; 
+Definir Tabela tMeses[12] = {Alfa aNomeMes[10]; Numero nNumeroDias;}; 
+Definir Cursor Cur_NomeTabela; 
+Definir Funcao FTriplo(Numero nValor, Alfa aTexto); 
+Definir Lista LCidade;
+
+
+MontaData(08,12,2011,dDataVenda); @ função que monta uma data em uma variável @   
+IntParaAlfa(nNumeroPedido,aNumeroPedido); @ Converte um inteiro para alfanumérico @ 
+@ --- Conversão de Valores para texto de acordo com uma máscara --- @ 
+ConverteMascara(1,nTotalPedido,aTotalPedido,"zzz.zz9,99"); 
+ConverteMascara(1,nComDesconto,aComDesconto,"zzz.zz9,99"); 
+@ --- Conversão de Data para texto de acordo com uma máscara --- @ 
+ConverteMascara(3,dDataVenda,aDataVenda,"DD/MM/YYYY"); 
+
+@--------------------Conversão de variáveis --------------------------@
+
+/*Durante a execução da Regra, perceberá que muitas vezes precisará converter o conteúdo 
+de variáveis de um tipo para outro. Para este fim, existem funções prontas de conversão.  
+Algumas situações de exemplo em que é necessária conversão de tipo de variável:  
+IntParaAlfa: Se quiser exibir uma Mensagem, você já sabe que o conteúdo de sua exibição 
+deve sempre ser do tipo alfa. Então se estiver manipulando valores numéricos, terá de converte
+los para alfa antes de colocá-los no parâmetro do comando “Mensagem”. */
+
+Exemplo:  
+Definir Alfa aCodigoCliente;  
+Definir Numero nCodigoCliente;  
+Definir Alfa aMsg;  
+nCodigoCliente = 150;  
+IntParaAlfa (nCodigoCliente, aCodigoCliente);  
+aMsg = "Cliente = " + aCodigoCliente;  
+Mensagem (Retorna, aMsg); 
+
+/*AlfaParaInt: Se estiver lendo o conteúdo de um campo alfa e souber que o conteúdo 
+deste campo for sempre um número, poderá desejar converte-lo de alfa para numero a fim de 
+utilizá-lo em alguma conta aritmética. */
+
+Exemplo:  
+Definir Alfa aProduto;  
+Definir Numero nProduto;  
+aProduto = "9701";  
+AlfaParaInt (aProduto, nProduto);  
+nCodigoProduto = nCodigoProduto + 1;  
+
+@----------------Conversão de máscaras------------------@
+
+/*Por exemplo, o número “02412438939” armazenado em uma variável na verdade é um 
+CPF e gostaríamos de exibi-lo mascarado. No caso do CPF, usamos um comando semelhante a 
+este:  
+ConverteMascara (1,nNumCPF,aNumCPF,"999.999.999-99");  
+
+Existem outros Tipos de conversão de máscara na função ConverteMascara, como por 
+exemplo, 1-número, 2-dinheiro (valor), 3-data, 4-hora, 5-alfa.*/
+
+
+/*No entanto, talvez queira exibir (ou gravar) a data em formato dd/mm/aaaa e não em 
+número (ou ainda em outro formato, como aaaa/mm/dd, etc). Neste caso, também terá de 
+converter a variável do tipo número para tipo data. */
+
+Exemplo:  
+Definir Alfa aDataHoje;  
+Definir Numero nDataHoje;  
+nDataHoje = DatSis;  
+Convertemascara(3,nDataHoje,aDataHoje,"DD/MM/YYYY");  
+Mensagem (Retorna,aDataHoje); 
+
+
+@--------------Entrada de Valor-------------@  
+/*Se desejar permitir que o usuário entre com um valor durante a execução da Regra, 
+poderá utilizar a função EntradaValor. O valor digitado será armazenado em uma variável, 
+podendo assim ser utilizado durante o restante da Regra.  
+Os tipos possíveis de entrada de valores são: 1-Numero, 2-Dinheiro, 3-Data, 4-Hora, 5-Alfa 
+e 6-Senha.*/
+
+Exemplo:  
+Definir Alfa aRetorno1;  
+Definir Numero nCodCliente;  
+Definir Numero nRetorno2;  
+Definir Numero nRetorno3;  
+EntradaValor("Entrada de Dados","Informe o Cliente: ",5,"ZZZZZZZZ"," 
+",50,aRetorno1,nRetorno2,nRetorno3);  
+Mensagem (Retorna,aRetorno1);
+
+
+@-----------Constantes-----------@ 
+/*Constantes são informações que não têm seu valor alterado durante a execução da Regra, 
+ou seja, é um valor não calculado. Por exemplo, a data 15/09/2012, o número 720 e o texto 
+“Senior Sistemas” são constantes. O valor resultante de um cálculo ou de uma fórmula não é uma 
+constante.*/ 

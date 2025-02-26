@@ -20,6 +20,7 @@ se (nDia = 1)
   Senao
   aDiasemana = "Chegou o final de semana!!!!!";
   Mensagem(Retorna, aDiaSemana);
-  
 
+/*O comando “Se” executa um ou mais comandos se a condição avaliada for verdadeira. 
+Pode ser utilizado em conjunto com o “Senao” que executa comandos se a condição for falsa. */
 

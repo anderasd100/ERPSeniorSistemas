@@ -1,0 +1,192 @@
+@------------ESTRUTURA BÁSICA DE CURSOR-------------@ 
+ 
+/*Na LSP, os cursores são recursos que permitem através de comandos SQL obter e 
+manipular registros de uma ou mais tabelas do banco de dados.*/
+
+Exemplo Gestão de Pessoas: 
+ 
+Definir Cursor Cur_R034FUN; 
+ 
+Cur_R034FUN.SQL "SELECT NUMCAD \ 
+                   FROM R034FUN \ 
+                  WHERE R034FUN.NUMEMP = 1"; 
+ 
+Exemplo Gestão Empresarial: 
+ 
+Definir Cursor Cur_E085CLI; 
+ 
+Cur_E085CLI.SQL "SELECT NUMCAD \ 
+                   FROM R034FUN \ 
+                  WHERE R034FUN.NUMEMP = 1"; 
+
+
+@Exemplo Gestão de Pessoas – Cursor simples utilizando valores fixos:@ 
+ 
+Definir Cursor Cur_R034FUN; 
+Definir Alfa   aNomFun; 
+Definir Data   dDatAdm; 
+Definir Alfa   aMensagem; 
+Definir Alfa   aDatAdm; 
+ 
+aNomFun = ""; 
+dDatAdm = 0; 
+aMensagem = "Não encontrou o Colaborador!!"; 
+Cur_R034FUN.SQL "SELECT NOMFUN, DATADM FROM R034FUN   \ 
+                  WHERE NUMEMP = 1 \ 
+                    AND TIPCOL = 1 \ 
+                    AND NUMCAD = 1"; 
+Cur_R034FUN.AbrirCursor(); 
+Se (Cur_R034FUN.Achou) 
+   Inicio 
+   aNomFun = Cur_R034FUN.NomFun; @Lendo o valor do campo NomFun do cursor.@ 
+   dDatAdm = Cur_R034FUN.DatAdm; @Lendo o valor do campo DatAdm do cursor.@ 
+   ConverteMascara (3,dDatAdm,aDatAdm,"DD/MM/YYYY"); 
+   aMensagem = "Colaborador: " + aNomFun + ", Data de Admissão: " + aDatAdm; 
+   Fim; 
+Cur_R034FUN.FecharCursor(); 
+Mensagem(Retorna,aMensagem);
+
+@Exemplo Gestão Empresarial – Cursor simples utilizando valores fixos:@ 
+ 
+Definir Cursor Cur_E085CLI; 
+Definir Alfa   aNomCli; 
+Definir Alfa   aUF; 
+Definir Alfa   aMensagem; 
+ 
+aNomCli = ""; 
+aUF = ""; 
+aMensagem = "Não encontrou o Cliente!!"; 
+ 
+Cur_E085CLI.SQL "SELECT NOMCLI, SIGUFS \ 
+                   FROM E085CLI         \ 
+                  WHERE NUMEMP = 1      \  
+                    AND TIPCOL = 1      \ 
+                    AND NUMCAD = 1"; 
+Cur_E085CLI.AbrirCursor(); 
+Se (Cur_E085CLI.Achou) 
+   Inicio 
+   aNomCli   = Cur_E085CLI.NomCli; @Lendo o valor do campo NomCli do cursor.@ 
+   auf       = Cur_E085CLI.SigUfs; @Lendo o valor do campo SigUfs do cursor.@ 
+   aMensagem = "Cliente: " + aNomCli + ", Estado: " + aUF; 
+   Fim; 
+Cur_E085CLI.FecharCursor(); 
+Mensagem(Retorna,aMensagem);
+
+/*Quando um comando SQL for muito extenso, pode-se utilizar a barra (\) para efetuar a 
+quebra de linha. Isso facilita a visualização do comando na tela. 
+Exemplo Gestão de Pessoas:*/ 
+Cur_R034FUN.SQL "SELECT NUMEMP, NUMCAD, NOMFUN, DATADM \ 
+                   FROM R034FUN \ 
+                  WHERE NUMEMP = (SELECT MAX(NUMEMP) \  
+                                    FROM R034FUN)    \ 
+                    AND DATADM = (SELECT MIN(DATADM) \ 
+                                    FROM R034FUN \ 
+                                   WHERE NUMEMP = (SELECT MAX(NUMEMP) \  
+                                                     FROM R034FUN))"; 
+
+@Exemplo Gestão de Pessoas – Cursor Simples utilizando variáveis externas:@  
+Definir Cursor Cur_R034FUN; 
+Definir Alfa   aNomFun; 
+Definir Data   dDatAdm; 
+Definir Alfa   aMensagem; 
+Definir Alfa   aDatAdm; 
+ 
+aNomFun   = ""; 
+dDatAdm   = 0; 
+aMensagem = "Não encontrou o Colaborador!!"; 
+nNumEmp   = 1; 
+nTipCol   = 1; 
+nNumCad   = 10; 
+ 
+Cur_R034FUN.SQL "SELECT NOMFUN, DATADM FROM R034FUN \ 
+                  WHERE NUMEMP = :nNumEmp\ 
+                    AND TIPCOL = :nTipCol\ 
+                    AND NUMCAD = :nNumCad"; 
+Cur_R034FUN.AbrirCursor(); 
+Se (Cur_R034FUN.Achou) 
+   Inicio 
+   aNomFun = Cur_R034FUN.NomFun; @Lendo o valor do campo NomFun do cursor.@ 
+   dDatAdm = Cur_R034FUN.DatAdm; @Lendo o valor do campo DatAdm do cursor.@ 
+   ConverteMascara (3,dDatAdm,aDatAdm,"DD/MM/YYYY"); 
+   aMensagem = "Colaborador: " + aNomFun + ", Data de Admissão: " + aDatAdm; 
+   Fim; 
+Cur_R034FUN.FecharCursor(); 
+Mensagem(Retorna,aMensagem); 
+ 
+@Exemplo Gestão Empresarial – Cursor Simples utilizando variáveis externas:@  
+Definir Cursor Cur_E085CLI; 
+Definir Alfa   aNomCli; 
+Definir Alfa   aUF; 
+Definir Alfa   aMensagem; 
+ 
+aNomCli   = ""; 
+aUF       = ""; 
+aMensagem = "Não encontrou o Cliente!!"; 
+nCodCli   = 2; 
+ 
+Cur_E085CLI.SQL "SELECT NOMCLI, SIGUFS \ 
+                   FROM E085CLI         \ 
+                  WHERE CODCLI = :nCodCli"; 
+Cur_E085CLI.AbrirCursor(); 
+Se (Cur_E085CLI.Achou) 
+   Inicio 
+   aNomCli = Cur_E085CLI.NomCli; @Lendo o valor do campo NomCli do cursor.@ 
+   auf     = Cur_E085CLI.SigUfs; @Lendo o valor do campo SigUfs do cursor.@ 
+   aMensagem = "Cliente: " + aNomCli + ", Estado: " + aUF; 
+   Fim; 
+Cur_E085CLI.FecharCursor(); 
+Mensagem(Retorna,aMensagem);
+
+
+@Exemplo Gestão de Pessoas – Cursor Simples utilizando variáveis externas:@  
+Definir Cursor Cur_R034FUN; 
+Definir Alfa   aNomFun; 
+Definir Data   dDatAdm; 
+Definir Alfa   aMensagem; 
+Definir Alfa   aDatAdm; 
+ 
+aNomFun   = ""; 
+dDatAdm   = 0; 
+aMensagem = "Não encontrou o Colaborador!!"; 
+nNumEmp   = 1; 
+nTipCol   = 1; 
+nNumCad   = 10; 
+ 
+Cur_R034FUN.SQL "SELECT NOMFUN, DATADM FROM R034FUN \ 
+                  WHERE NUMEMP = :nNumEmp\ 
+                    AND TIPCOL = :nTipCol\ 
+                    AND NUMCAD = :nNumCad"; 
+Cur_R034FUN.AbrirCursor(); 
+Se (Cur_R034FUN.Achou) 
+   Inicio 
+   aNomFun = Cur_R034FUN.NomFun; @Lendo o valor do campo NomFun do cursor.@ 
+   dDatAdm = Cur_R034FUN.DatAdm; @Lendo o valor do campo DatAdm do cursor.@ 
+   ConverteMascara (3,dDatAdm,aDatAdm,"DD/MM/YYYY"); 
+   aMensagem = "Colaborador: " + aNomFun + ", Data de Admissão: " + aDatAdm; 
+   Fim; 
+Cur_R034FUN.FecharCursor(); 
+Mensagem(Retorna,aMensagem); 
+ 
+@Exemplo Gestão Empresarial – Cursor Simples utilizando variáveis externas:@  
+Definir Cursor Cur_E085CLI; 
+Definir Alfa   aNomCli; 
+Definir Alfa   aUF; 
+Definir Alfa   aMensagem; 
+ 
+aNomCli   = ""; 
+aUF       = ""; 
+aMensagem = "Não encontrou o Cliente!!"; 
+nCodCli   = 2; 
+ 
+Cur_E085CLI.SQL "SELECT NOMCLI, SIGUFS \ 
+                   FROM E085CLI         \ 
+                  WHERE CODCLI = :nCodCli"; 
+Cur_E085CLI.AbrirCursor(); 
+Se (Cur_E085CLI.Achou) 
+   Inicio 
+   aNomCli = Cur_E085CLI.NomCli; @Lendo o valor do campo NomCli do cursor.@ 
+   auf     = Cur_E085CLI.SigUfs; @Lendo o valor do campo SigUfs do cursor.@ 
+   aMensagem = "Cliente: " + aNomCli + ", Estado: " + aUF; 
+   Fim; 
+Cur_E085CLI.FecharCursor(); 
+Mensagem(Retorna,aMensagem);

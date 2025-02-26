@@ -1,0 +1,35 @@
+@Laço de repetição NENQUATO@
+
+/*(normalmente emprega-se o comando enquanto quando não é conhecido o 
+número de iterações que se deseja fazer).  */
+
+Sintaxe: 
+Enquanto (<condição verdadeira>) 
+  Inicio 
+  <executa comando 1>; 
+  <executa comando 2>; 
+  <executa comando n>; 
+  Fim; 
+ 
+Exemplo:  
+ 
+@ -- Regra para inversão de um texto de uma variável e exibição  -- @ 
+@ -- da mesma de forma invertida  -- @ 
+Definir Alfa aTexto; 
+Definir Alfa aNovoTexto; 
+Definir Alfa aTextoAux; 
+ 
+aTexto = "String que deve ser escrita de forma invertida!!!"; 
+aNovoTexto = ""; 
+aTextoAux = ""; 
+Enquanto (aTexto <> "") 
+    Inicio 
+    aTextoAux = aTexto; 
+    TamanhoAlfa(aTextoAux,nTamanho); @ recupera o tamanho da string @ 
+    CopiarAlfa(aTextoAux,nTamanho,1);@ copia o último caractere     @ 
+    aNovoTexto = aNovoTexto + aTextoAux; 
+    aTextoAux = aTexto; 
+    DeletarAlfa(aTextoAux,nTamanho,1); @ exclui o último caractere @ 
+    aTexto = aTextoAux; 
+    Fim; 
+Mensagem(Retorna,aNovoTexto);

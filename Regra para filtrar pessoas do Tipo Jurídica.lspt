@@ -34,7 +34,7 @@ Mensagem(Retorna, "Estudo Senior!!!!");
 Estrutura:
 Declaração de variáveis
 Definir Cursor
-Criar o SELECT no cursor
+Criar o SELECT do cursor
 Abrir Cursor
 {
 }
