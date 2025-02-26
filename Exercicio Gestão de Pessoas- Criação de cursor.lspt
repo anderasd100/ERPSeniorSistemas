@@ -1,0 +1,28 @@
+/*AUTOATIVIDADE – GESTÃO DE PESSOAS 
+Agora que você já explorou todos os materiais disponíveis vamos praticar a criação de cursores 
+no sistema Gestão de Pessoas:  - Criar um cursor que retorne em mensagem o código, descrição e UF da cidade.*/
+
+Definir Cursor cur_func;
+Definir Alfa aUf;
+Definir Alfa aNome;
+Definir Alfa aMsg;
+Definir Numero nCod;
+Definir Alfa aCod;
+
+aUf = "MT";
+
+cur_func.SQL "SELECT CODFUN, NOMFUN, DESUF \
+               FROM R034FUN \
+               WHERE DESUF =:aUf";
+cur_func.abrircursor();
+Se (cur_func.achou)
+{
+nCod = cur_func.CODFUN;
+aNome = cur_func.NOMFUN;
+IntParaAlfa = (nCod,aCod);
+aMsg = "Colaborador: " +aNome + ", Códido: " +aCod;
+}
+cur_func.FecharCursor();
+Mensagem(Retorna, aMsg);
+
+ 
