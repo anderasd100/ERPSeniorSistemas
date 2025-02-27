@@ -1,0 +1,29 @@
+/*AUTOATIVIDADE – GESTÃO EMPRESARIAL – ERP  
+Agora que você já explorou todos os materiais disponíveis vamos praticar a criação de cursores 
+no sistema Gestão Empresarial:  -  Criar um cursor que retorne em mensagem o CEP inicial, descrição e UF da cidade */
+
+Definir Cursor cur_clientes;
+Definir Alfa aNome;
+Definir Numero nCod;
+Definir Alfa aCod;
+Definir Numero nCep;
+Definir Alfa aCep;
+Definir Alfa aUF;
+Definir Alfa aMsg;
+aUF = "MT"
+
+cur_clientes.SQL "SELECT CODCLI, NOMCLI, DESCEP, SIGUFS \
+                  FROM E085CLI \
+                  WHERE SIGUFS :=aUF";
+cur_clientes.abrircursor();
+   Se cur_clientes.achou();
+   {
+    nCod = cur_clientes.CODCLI;
+    aNome = cur_clientes.NOMCLI;
+    nCep = cur_clientes.DESCEP;
+    IntParaAlfa(nCod,aCod);
+    IntParaAlfa(nCep,aCep);
+    aMsg = "Código: " +acod + "Cliente: " +aNome + "Cep: " +acep;
+   }
+   cur_clientes.fecharcursor();
+   Mensagem(Retorna, aMsg);
